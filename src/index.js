@@ -24,14 +24,6 @@ animation({
     clear() {
         canvasCtx.beginPath()
         canvasCtx.fillStyle = '#eeeeee'
-        // for (const tile_uuid of GameField.tileToRender_) {
-        //     canvasCtx.rect(
-        //         GameField.tileGraph_.get(tile_uuid).coordX_,
-        //         GameField.tileGraph_.get(tile_uuid).coordY_,
-        //         GameField.tileSize_,
-        //         GameField.tileSize_
-        //     )
-        // }
         if (GameField.tileToRender_.size > 0) {
             canvasCtx.rect(
                 0,
@@ -44,8 +36,7 @@ animation({
     },
     update(metrics) {
         sum_second += metrics.second_part
-        if (sum_second > .5) {
-            // console.log(sum_second, metrics.fps)
+        if (sum_second > .33) {
             if (fps_ui !== Math.floor(metrics.fps)) {
                 fps_ui = Math.floor(metrics.fps)
             }
