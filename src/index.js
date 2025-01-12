@@ -53,12 +53,7 @@ animation({
             document.getElementById('lives').innerText = GameField.livesTile_
             sum_second = 0
             GameField.livesTile_ = 0
-            // console.log(metrics)
-            // console.log(GameField.tileToUpdate_)
-            // console.log('====>', GameField.tileToUpdate_.size)
             for (const tile_uuid of GameField.tileToUpdate_) {
-                // console.log(GameField.tileToUpdate_.size)
-                // console.log(GameField.tileGraph_[tile_uuid], GameField.tileGraph_[tile_uuid]?.grassLevel_)
                 if (GameField.tileGraph_.get(tile_uuid).grassLevel_ > 0) {
                     GameField.tileGraph_.get(tile_uuid).nears_.forEach(uuid => {
                         if (!!uuid) GameField.addToUpdate_ = uuid
@@ -66,11 +61,6 @@ animation({
                 }
 
                 GameField.tileGraph_.get(tile_uuid).stateUpd_ = GameField.step(GameField.tileGraph_.get(tile_uuid).nears_, tile_uuid) ? 1 : -1
-
-                // if ((GameField.tileGraph_.get(tile_uuid).nextState_ !== GameField.tileGraph_.get(tile_uuid).grassLevel_)
-                //     || (GameField.tileGraph_.get(tile_uuid).nextState_ === 1 && GameField.tileGraph_.get(tile_uuid).grassLevel_ !== 1)) {
-                //     GameField.addToRender_ = tile_uuid
-                // }
                 if (GameField.tileGraph_.get(tile_uuid).nextState_ === 1 || GameField.tileGraph_.get(tile_uuid).grassLevel_ === 1) {
                     GameField.addToRender_ = tile_uuid
                     GameField.livesTile_++
@@ -82,12 +72,11 @@ animation({
     render() {
         canvasCtx.beginPath()
         canvasCtx.fillStyle = '#93c47d'
+        
         for (const tile_uuid of GameField.tileToRender_) {
             if (GameField.tileGraph_.get(tile_uuid).nextState_ !== null) {
                 GameField.tileGraph_.get(tile_uuid).grassUpd_ = GameField.tileGraph_.get(tile_uuid).nextState_
             }
-
-            // canvasCtx.fillStyle = GameField.tileGraph_.get(tile_uuid).color_
             if (GameField.tileGraph_.get(tile_uuid).grassLevel_ > 0) {
                 canvasCtx.rect(
                     GameField.tileGraph_.get(tile_uuid).coordX_,
@@ -99,9 +88,6 @@ animation({
             }
         }
         canvasCtx.fill()
-        // for (const [tile_uuid, tile] of GameField.tileGraph_) {
-        //     if (tile.grassLevel_ > 0) GameField.addToUpdate_ = tile_uuid
-        // }
         GameField.tileToRender_.clear()
     },
     canvasProp
