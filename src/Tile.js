@@ -29,11 +29,6 @@ export default class Tile {
         return this.content_.storage
     }
 
-    get color_() {
-        // return ['#eeeeee', '#d9ead3', '#b6d7a8', '#93c47d', '#6aa84f', '#38761d'][this.grassLevel_]
-        return ['#eeeeee', '#93c47d'][this.grassLevel_]
-    }
-
     set entryPoint_(data) {
         this.content_.entry = !!this.content_.base && data !== null ? null : data
     }
@@ -47,7 +42,6 @@ export default class Tile {
         this.content_.storage += data
     }
     set grassUp_(data) {
-        // console.log(data)
         const upd_grass = this.grassLevel_ + data
         if (upd_grass >= 0 && upd_grass <= 1) {
             this.grassLevel_ = upd_grass
