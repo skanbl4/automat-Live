@@ -1,5 +1,4 @@
 import Tile from "./Tile"
-import { uuidv4 } from "./genUuid"
 
 export default class Field {
 	constructor(data) {
@@ -22,9 +21,6 @@ export default class Field {
 	}
 
 	set addToUpdate_(tile_uuid) {
-		// if (this.tileToUpdate_.has(tile_uuid)) {
-		// 	console.log(tile_uuid)
-		// }
 		this.tileToUpdate_.add(tile_uuid)
 	}
 	set deleteToUpdate_(tile_uuid) {
@@ -43,7 +39,6 @@ export default class Field {
 			const near_left = i > 0 ? i - 1 : this.width_ - 1
 			const near_right = i < this.width_ - 1 ? i + 1 : 0
 			for (let j = 0; j < this.height_; j++) {
-				// const tile_uuid = uuidv4()
 				const tile_uuid = `x${i}_y${j}`
 				const near_top = j > 0 ? j - 1 : this.height_ - 1
 				const near_bottom = j < this.height_ - 1 ? j + 1 : 0
@@ -54,7 +49,6 @@ export default class Field {
 						y: j,
 						coord_x: this.gapSize_ * (i + 1) + this.tileSize_ * i,
 						coord_y: this.gapSize_ * (j + 1) + this.tileSize_ * j,
-						// grass: Math.floor(Math.random() * 6),
 						grass: Math.round(Math.random() * cofx),
 						nears: [
 							`x${i}_y${near_top}`,
@@ -70,9 +64,6 @@ export default class Field {
 					})
 				)
 				this.tileToRender_.add(tile_uuid)
-				// cofx += 0.01 * k
-				// if (cofx >= 0.65) k = -1
-				// if (cofx <= 0.59) k = 1
 			}
 
 		}
@@ -80,13 +71,11 @@ export default class Field {
 		this.tileGraph_.forEach(tile => {
 			if (tile.grassLevel_ > 0) ++count
 		})
-		// console.log('=>', count)
 	}
 
 	step(uuids, target_uuid) {
 		let count = 0
 		uuids.forEach(uuid => {
-			// if (!!uuid) console.log(uuid, this.tileGraph_.get(uuid))
 			if (!!uuid) this.tileGraph_.get(uuid).grassLevel_ > 0 && ++count
 		})
 		if (this.tileGraph_.get(target_uuid).grassLevel_ === 0) {
